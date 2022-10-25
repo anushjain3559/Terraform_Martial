@@ -1,0 +1,12 @@
+region                        = "us-west-2"
+bucket_name                   = "martialbkttest1"
+object_key                    = "source//"
+appflowname                   = "KDH-RAW"
+nametype                      = "VEEVACRM" #FULL-KKUS or EVENT-KKUS
+objectsname                   = "REMOTE_MEETING" 
+source_connector_type         = "Salesforce"
+source_connector_profile_name = "my-salesforce-connection"
+source_connector_object       = "Account"
+destination_connector_type    = "S3"
+tasktype                      = "Map_all"
+trigger_type                  = "OnDemand"
