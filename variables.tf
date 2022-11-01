@@ -1,3 +1,4 @@
+#Declaring the variables
 variable "region" {}
 variable "bucket_name" {}
 variable "object_key" {}
