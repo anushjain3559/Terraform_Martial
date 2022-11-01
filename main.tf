@@ -19,7 +19,35 @@ resource "aws_s3_object" "s3object" {
   bucket = var.bucket_name
   key    = "${var.object_key}${aws_appflow_flow.s3appflow.name}//"
 }
-
+resource "aws_s3_bucket_policy" "example_destination" {
+   bucket = var.bucket_name
+   policy = <<EOF
+ {
+     "Statement": [
+         {
+             "Effect": "Allow",
+             "Sid": "AllowAppFlowDestinationActions",
+             "Principal": {
+                 "Service": "appflow.amazonaws.com"
+             },
+             "Action": [
+                 "s3:PutObject",
+                 "s3:AbortMultipartUpload",
+                 "s3:ListMultipartUploadParts",
+                 "s3:ListBucketMultipartUploads",
+                 "s3:GetBucketAcl",
+                 "s3:PutObjectAcl"
+             ],
+             "Resource": [
+                 "arn:aws:s3:::gilead-kdh-tst-us-west-2-raw",
+                 "arn:aws:s3:::gilead-kdh-tst-us-west-2-raw/*"
+             ]
+         }
+     ],
+     "Version": "2012-10-17"
+ }
+ EOF
+}
 #Creating AppFlow
 resource "aws_appflow_flow" "s3appflow" {
   name = "${var.appflowname}-${var.nametype}_${var.objectsname}"
